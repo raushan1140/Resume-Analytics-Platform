@@ -58,13 +58,12 @@ app = FastAPI(title="Resume Analytics API")
 
 Base.metadata.create_all(bind=engine)
 
-origins = [
-    "http://localhost:5173",
-    "https://resume-analytics-platform.vercel.app",
-]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://resume-analytics-platform.vercel.app",
+    ],
     allow_origin_regex=r"https://resume-analytics-platform.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
