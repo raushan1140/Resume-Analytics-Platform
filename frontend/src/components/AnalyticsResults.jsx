@@ -1,6 +1,7 @@
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import axios from 'axios'
 import SkillBreakdown from './SkillBreakdown'
+import API_BASE_URL from '../config/api'
 
 const getRoleDisplayName = (roleId) => {
   const roles = {
@@ -48,7 +49,7 @@ export default function AnalyticsResults({ data }) {
 
   const handleDownloadPDF = async () => {
     try {
-      const response = await axios.get(`http://localhost:8001/report/${data.analysis_id}`, {
+      const response = await axios.get(`${API_BASE_URL}/report/${data.analysis_id}`, {
         responseType: 'blob'
       })
       

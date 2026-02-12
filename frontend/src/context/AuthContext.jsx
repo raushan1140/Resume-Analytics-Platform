@@ -1,5 +1,6 @@
 import React, { createContext, useState, useCallback, useEffect, useRef } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 const AuthContext = createContext();
 
@@ -48,7 +49,7 @@ export const AuthProvider = ({ children }) => {
 
           try {
             // Refresh the token using the separate axios instance
-            const response = await refreshAxios.post('http://localhost:8001/refresh', {
+            const response = await refreshAxios.post(`${API_BASE_URL}/refresh`, {
               refresh_token: tokensRef.current.refreshToken,
             });
             const { access_token } = response.data;
@@ -96,7 +97,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post('http://localhost:8001/register', {
+      const response = await axios.post(`${API_BASE_URL}/register`, {
         email,
         password,
       });
@@ -115,7 +116,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post('http://localhost:8001/login', {
+      const response = await axios.post(`${API_BASE_URL}/login`, {
         email,
         password,
       });
@@ -126,7 +127,7 @@ export const AuthProvider = ({ children }) => {
       setRefreshToken(refresh_token);
       
       // Fetch user info with the new token
-      const userResponse = await axios.get('http://localhost:8001/me', {
+      const userResponse = await axios.get(`${API_BASE_URL}/me`, {
         headers: { Authorization: `Bearer ${access_token}` },
       });
       setUser(userResponse.data);
@@ -155,7 +156,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      const response = await refreshAxios.post('http://localhost:8001/refresh', {
+      const response = await refreshAxios.post(`${API_BASE_URL}/refresh`, {
         refresh_token: currentRefreshToken,
       });
       const { access_token } = response.data;
@@ -176,7 +177,7 @@ export const AuthProvider = ({ children }) => {
     
     if (currentRefreshToken) {
       try {
-        await refreshAxios.post('http://localhost:8001/logout', {
+        await refreshAxios.post(`${API_BASE_URL}/logout`, {
           refresh_token: currentRefreshToken,
         });
       } catch (err) {

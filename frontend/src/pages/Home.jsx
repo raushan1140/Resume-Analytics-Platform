@@ -2,6 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import UploadResume from '../components/UploadResume'
 import RoleSelector from '../components/RoleSelector'
+import API_BASE_URL from '../config/api'
 
 const ROLE_DESCRIPTIONS = {
   'data_analyst': 'SQL, Excel, Analytics, BI tools',
@@ -65,7 +66,7 @@ export default function Home({ onAnalysisComplete }) {
 
     setIsAnalyzing(true)
     try {
-      const response = await axios.post('http://localhost:8001/analyze', {
+      const response = await axios.post(`${API_BASE_URL}/analyze`, {
         resume_id: resumeId,
         role: selectedRole,
         level: selectedLevel

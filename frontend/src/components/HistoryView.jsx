@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import API_BASE_URL from '../config/api'
 
 const getRoleDisplayName = (roleId) => {
   const roles = {
@@ -38,7 +39,7 @@ export default function HistoryView() {
     const fetchHistory = async () => {
       try {
         setIsLoading(true)
-        const response = await axios.get('http://localhost:8001/history')
+        const response = await axios.get(`${API_BASE_URL}/history`)
         setHistory(response.data.analyses || [])
       } catch (err) {
         setError(err.response?.data?.detail || err.message)
@@ -52,7 +53,7 @@ export default function HistoryView() {
 
   const fetchAnalysisDetail = async (analysisId) => {
     try {
-      const response = await axios.get(`http://localhost:8001/analysis/${analysisId}`)
+      const response = await axios.get(`${API_BASE_URL}/analysis/${analysisId}`)
       setSelectedAnalysis(response.data)
     } catch (err) {
       alert(`Error: ${err.response?.data?.detail || err.message}`)
@@ -61,7 +62,7 @@ export default function HistoryView() {
 
   const downloadPDF = async (analysisId) => {
     try {
-      const response = await axios.get(`http://localhost:8001/report/${analysisId}`, {
+      const response = await axios.get(`${API_BASE_URL}/report/${analysisId}`, {
         responseType: 'blob'
       })
 
