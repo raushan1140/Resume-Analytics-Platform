@@ -1,15 +1,28 @@
-import sqlite3
-from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, Text
+import os
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime
-import os
 
-DATABASE_URL = "sqlite:///./resume_db.sqlite"
+# Get database URL from environment (Render)
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+# If not found (local dev), use SQLite
+if DATABASE_URL:
+    # Render provides postgres:// but SQLAlchemy needs postgresql://
+    if DATABASE_URL.startswith("postgres://"):
+        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+    engine = create_engine(DATABASE_URL)
+else:
+    DATABASE_URL = "sqlite:///./resume_db.sqlite"
+    engine = create_engine(
+        DATABASE_URL,
+        connect_args={"check_same_thread": False}
+    )
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
+
 
 def get_db():
     db = SessionLocal()
@@ -17,6 +30,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 def init_db():
     Base.metadata.create_all(bind=engine)
