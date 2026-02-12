@@ -34,6 +34,7 @@
 
 ------------------------------------------------------------------------
 
+<a name="overview"></a>
 # 📌 Overview
 
 The **Resume Analytics Platform** is a full-stack, production-ready SaaS
@@ -51,6 +52,7 @@ secure API design.
 
 ------------------------------------------------------------------------
 
+<a name="problem-statement"></a>
 # 🎯 Problem Statement
 
 Recruiters scan resumes in **6--8 seconds**.
@@ -68,6 +70,7 @@ This platform solves these problems by providing:
 
 ------------------------------------------------------------------------
 
+<a name="system-architecture"></a>
 # 🏗 System Architecture
 
 ## High-Level Architecture
@@ -109,8 +112,10 @@ This platform solves these problems by providing:
 
 ------------------------------------------------------------------------
 
+<a name="complete-feature-breakdown"></a>
 # ✨ Complete Feature Breakdown
 
+<a name="authentication--security"></a>
 ## 🔐 Authentication & Security
 
 -   User Registration
@@ -127,6 +132,7 @@ This platform solves these problems by providing:
 
 ------------------------------------------------------------------------
 
+<a name="resume-upload--parsing"></a>
 ## 📄 Resume Upload & Parsing
 
 -   Supports PDF and DOCX formats
@@ -138,6 +144,7 @@ This platform solves these problems by providing:
 
 ------------------------------------------------------------------------
 
+<a name="resume-scoring-engine"></a>
 ## 📊 Resume Scoring Engine
 
   Category               Weight
@@ -153,6 +160,7 @@ Skills - Improvement Suggestions
 
 ------------------------------------------------------------------------
 
+<a name="role-based-evaluation"></a>
 ## 🎯 Role-Based Evaluation
 
 Supports 16 job roles across Data & Software Engineering domains with 3
@@ -161,6 +169,7 @@ Experienced (5+ years)
 
 ------------------------------------------------------------------------
 
+<a name="resume-comparison"></a>
 ## 🔄 Resume Comparison
 
 -   Upload two resumes
@@ -170,6 +179,7 @@ Experienced (5+ years)
 
 ------------------------------------------------------------------------
 
+<a name="job-description-matcher"></a>
 ## 🧠 Job Description Matcher
 
 -   Paste job description
@@ -179,6 +189,7 @@ Experienced (5+ years)
 
 ------------------------------------------------------------------------
 
+<a name="analysis-history"></a>
 ## 📈 Analysis History
 
 -   Persistent storage of analyses
@@ -188,6 +199,7 @@ Experienced (5+ years)
 
 ------------------------------------------------------------------------
 
+<a name="database-architecture"></a>
 # 🗄 Database Architecture
 
 Production: - PostgreSQL (Render)
@@ -198,6 +210,7 @@ Core Tables: - Users - Resumes - Analyses - Refresh Tokens
 
 ------------------------------------------------------------------------
 
+<a name="local-setup-guide"></a>
 # 🛠 Local Setup Guide
 
 ## Clone Repository
@@ -227,6 +240,7 @@ npm run dev
 
 ------------------------------------------------------------------------
 
+<a name="environment-variables"></a>
 # ⚙ Environment Variables
 
 Frontend (.env): VITE_API_BASE_URL=http://localhost:8001
@@ -236,6 +250,7 @@ DATABASE_URL=postgresql://username:password@host:5432/dbname
 
 ------------------------------------------------------------------------
 
+<a name="deployment"></a>
 # ☁ Deployment
 
 Frontend: Vercel\
@@ -244,6 +259,7 @@ Database: PostgreSQL
 
 ------------------------------------------------------------------------
 
+<a name="screenshots"></a>
 # 📸 Screenshots
 
 > **Note:** User email blurred for privacy.
@@ -287,6 +303,7 @@ Database: PostgreSQL
 
 ------------------------------------------------------------------------
 
+<a name="author"></a>
 # 👨‍💻 Author
 
 **Raushan Raj**
@@ -299,6 +316,7 @@ Database: PostgreSQL
 
 ------------------------------------------------------------------------
 
+<a name="copyright"></a>
 # 📜 Copyright
 
 © 2026 Raushan Raj. All rights reserved.  
