@@ -34,7 +34,7 @@
 
 ------------------------------------------------------------------------
 
-## 📌 Overview
+# 📌 Overview
 
 The **Resume Analytics Platform** is a full-stack, production-ready SaaS
 application designed to evaluate resumes using NLP-driven skill
