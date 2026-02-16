@@ -477,12 +477,17 @@ def download_report(analysis_id: int, db: Session = Depends(get_db), current_use
     }
     
     pdf_buffer = generate_analysis_report(analysis_data, resume.filename)
-    filename = f"Resume_Analysis_{analysis.id}_{datetime.now().strftime('%Y%m%d')}.pdf"
+    filename = f"Resume_Analysis_{analysis.id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
     
     return StreamingResponse(
         iter([pdf_buffer.getvalue()]),
         media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
+        headers={
+            "Content-Disposition": f"attachment; filename={filename}",
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0"
+        }
     )
 
 @app.post("/compare")
