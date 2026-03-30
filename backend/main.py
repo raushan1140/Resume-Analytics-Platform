@@ -56,8 +56,6 @@ class JobDescriptionRequest(BaseModel):
 
 app = FastAPI(title="Resume Analytics API")
 
-Base.metadata.create_all(bind=engine)
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -69,6 +67,16 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Initialize database on startup
+@app.on_event("startup")
+def startup():
+    """Initialize database tables on application startup"""
+    try:
+        Base.metadata.create_all(bind=engine)
+    except Exception as e:
+        print(f"Warning: Could not create database tables on startup: {e}")
+        # Don't fail startup, tables might already exist
 
 def get_db():
     db = SessionLocal()
