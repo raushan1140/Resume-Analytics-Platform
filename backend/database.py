@@ -57,7 +57,11 @@ def get_db():
 # Initialize Database (Create Tables)
 # -------------------------------------------------
 def init_db():
-    Base.metadata.create_all(bind=engine)
+    try:
+        Base.metadata.create_all(bind=engine)
+    except Exception as e:
+        print(f"Warning: Could not create database tables: {e}")
+        # Don't raise - continue without failing
 
 # -------------------------------------------------
 # Debu

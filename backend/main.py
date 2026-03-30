@@ -68,16 +68,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize database on startup
-@app.on_event("startup")
-def startup():
-    """Initialize database tables on application startup"""
-    try:
-        Base.metadata.create_all(bind=engine)
-    except Exception as e:
-        print(f"Warning: Could not create database tables on startup: {e}")
-        # Don't fail startup, tables might already exist
-
 def get_db():
     db = SessionLocal()
     try:
@@ -128,7 +118,11 @@ if not os.path.exists(UPLOAD_DIR):
 
 @app.on_event("startup")
 def startup_event():
-    init_db()
+    try:
+        init_db()
+    except Exception as e:
+        print(f"Warning: Could not initialize database on startup: {e}")
+        # Continue without failing - database might already be initialized
 
 @app.get("/")
 def read_root():
