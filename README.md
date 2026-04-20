@@ -266,6 +266,17 @@ Database: PostgreSQL
 
 ---
 
+## 🏠 Home Page
+<p align="center">
+  <img src="./screenshots/Home.png" width="800"/>
+</p>
+
+<p align="center">
+  <img src="./screenshots/Home1.png" width="800"/>
+</p>
+
+---
+
 ## 🔐 Login Page
 <p align="center">
   <img src="./screenshots/Login.png" width="800"/>
