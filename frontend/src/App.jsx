@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
+import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
@@ -103,8 +104,33 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/" element={<LandingOrDashboard />} />
           <Route
-            path="*"
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <MainLayout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/upload"
+            element={
+              <ProtectedRoute>
+                <MainLayout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/compare"
+            element={
+              <ProtectedRoute>
+                <MainLayout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/history"
             element={
               <ProtectedRoute>
                 <MainLayout />
@@ -115,4 +141,15 @@ export default function App() {
       </AuthProvider>
     </Router>
   )
+}
+
+// Component to show Landing or Dashboard based on auth state
+function LandingOrDashboard() {
+  const { isAuthenticated } = useAuth()
+  
+  if (isAuthenticated) {
+    return <MainLayout />
+  }
+  
+  return <Landing />
 }
