@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Landing() {
   const navigate = useNavigate();
+  const [showArchitecture, setShowArchitecture] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
@@ -53,6 +54,7 @@ export default function Landing() {
             Analyze my resume ↗
           </button>
           <button
+            onClick={() => setShowArchitecture(!showArchitecture)}
             className="px-8 py-3 border border-slate-500 text-slate-300 hover:bg-slate-800 rounded-lg font-semibold transition duration-200"
           >
             See how it works
@@ -154,9 +156,105 @@ export default function Landing() {
         </button>
       </section>
 
+      {/* Architecture Diagram */}
+      {showArchitecture && (
+        <section className="px-8 py-16 max-w-6xl mx-auto animate-fadeIn">
+          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-12">
+            <h3 className="text-3xl font-bold text-white mb-8 text-center">How Resume Analytics Works</h3>
+            
+            <div className="grid md:grid-cols-5 gap-6 items-center mb-8">
+              {/* User Upload */}
+              <div className="text-center">
+                <div className="bg-blue-500/20 w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-3 border border-blue-500/30">
+                  <span className="text-2xl">📄</span>
+                </div>
+                <h4 className="text-white font-semibold mb-1">Upload Resume</h4>
+                <p className="text-slate-400 text-sm">User uploads their resume</p>
+              </div>
+
+              {/* Arrow */}
+              <div className="flex justify-center text-blue-400 text-2xl">
+                <span>→</span>
+              </div>
+
+              {/* PDF Parsing */}
+              <div className="text-center">
+                <div className="bg-purple-500/20 w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-3 border border-purple-500/30">
+                  <span className="text-2xl">🔍</span>
+                </div>
+                <h4 className="text-white font-semibold mb-1">Parse PDF</h4>
+                <p className="text-slate-400 text-sm">Extract text using NLP</p>
+              </div>
+
+              {/* Arrow */}
+              <div className="flex justify-center text-blue-400 text-2xl">
+                <span>→</span>
+              </div>
+
+              {/* Analysis */}
+              <div className="text-center">
+                <div className="bg-green-500/20 w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-3 border border-green-500/30">
+                  <span className="text-2xl">⚙️</span>
+                </div>
+                <h4 className="text-white font-semibold mb-1">Analyze</h4>
+                <p className="text-slate-400 text-sm">Run ML algorithms</p>
+              </div>
+            </div>
+
+            {/* Backend Processing */}
+            <div className="bg-slate-900/50 border border-slate-600/50 rounded-lg p-6 mb-8">
+              <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
+                <span className="text-yellow-400">⚡</span> Backend Processing (FastAPI)
+              </h4>
+              <div className="grid md:grid-cols-4 gap-4 text-sm">
+                <div className="p-3 bg-slate-800/50 rounded border border-slate-600/30">
+                  <p className="text-slate-400">📊 <span className="text-blue-300">ATS Scoring</span></p>
+                </div>
+                <div className="p-3 bg-slate-800/50 rounded border border-slate-600/30">
+                  <p className="text-slate-400">🎯 <span className="text-purple-300">Skill Extraction</span></p>
+                </div>
+                <div className="p-3 bg-slate-800/50 rounded border border-slate-600/30">
+                  <p className="text-slate-400">⭐ <span className="text-green-300">Role Matching</span></p>
+                </div>
+                <div className="p-3 bg-slate-800/50 rounded border border-slate-600/30">
+                  <p className="text-slate-400">📄 <span className="text-amber-300">JD Alignment</span></p>
+                </div>
+              </div>
+            </div>
+
+            {/* Results */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="bg-red-500/20 w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-3 border border-red-500/30">
+                  <span className="text-2xl">💾</span>
+                </div>
+                <h4 className="text-white font-semibold mb-2">Store in Supabase</h4>
+                <p className="text-slate-400 text-sm">Secure database storage with encryption</p>
+              </div>
+
+              <div className="text-center">
+                <div className="bg-indigo-500/20 w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-3 border border-indigo-500/30">
+                  <span className="text-2xl">🔐</span>
+                </div>
+                <h4 className="text-white font-semibold mb-2">JWT Authentication</h4>
+                <p className="text-slate-400 text-sm">Secure user sessions and access control</p>
+              </div>
+
+              <div className="text-center">
+                <div className="bg-cyan-500/20 w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-3 border border-cyan-500/30">
+                  <span className="text-2xl">📊</span>
+                </div>
+                <h4 className="text-white font-semibold mb-2">Display Results</h4>
+                <p className="text-slate-400 text-sm">Interactive visualizations and reports</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Footer */}
       <footer className="border-t border-slate-700/50 px-8 py-8 text-center text-slate-400 text-sm">
-        <p>© 2026 Resume Analytics. Built with React, FastAPI & Supabase.</p>
+        <p>© 2026 Raushan Analytics Platform. Built with React, FastAPI & Supabase.</p>
       </footer>
     </div>
   );
