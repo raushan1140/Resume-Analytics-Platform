@@ -65,9 +65,9 @@ export default function Register() {
 
   const getStrengthColor = () => {
     const strength = Object.values(passwordChecks).filter(Boolean).length;
-    if (strength <= 2) return 'bg-red-500';
-    if (strength === 3) return 'bg-yellow-500';
-    return 'bg-green-500';
+    if (strength <= 2) return 'from-red-500 to-red-600';
+    if (strength === 3) return 'from-amber-500 to-amber-600';
+    return 'from-green-500 to-green-600';
   };
 
   const getStrengthLabel = () => {
@@ -77,37 +77,56 @@ export default function Register() {
     return 'Strong';
   };
 
+  const strengthValue = Object.values(passwordChecks).filter(Boolean).length;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-xl p-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Resume Analytics</h1>
-          <p className="text-slate-600 mb-8">Create your account</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center px-4 py-8">
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="w-full max-w-md relative z-10">
+        {/* Logo/Header */}
+        <div className="text-center mb-10">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="w-2.5 h-2.5 bg-blue-500 rounded-full"></div>
+            <span className="text-white font-semibold text-xl">Resume Analytics</span>
+          </div>
+        </div>
+
+        {/* Card */}
+        <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl shadow-2xl p-10 hover:border-blue-500/30 transition duration-300">
+          <h2 className="text-2xl font-bold text-white mb-2">Create your account</h2>
+          <p className="text-slate-400 mb-8">Get started with Resume Analytics today.</p>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-800 text-sm">{error}</p>
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg animate-shake">
+              <p className="text-red-300 text-sm font-medium">{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
-                Email
+              <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+                Email address
               </label>
               <input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 text-white placeholder-slate-500 rounded-lg focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 transition duration-200"
                 placeholder="your.email@example.com"
                 disabled={submitting}
               />
             </div>
 
+            {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
                 Password
               </label>
               <input
@@ -115,83 +134,115 @@ export default function Register() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 text-white placeholder-slate-500 rounded-lg focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 transition duration-200"
                 placeholder="••••••••"
                 disabled={submitting}
               />
 
               {password && (
-                <div className="mt-3 space-y-2">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-600">Password Strength:</span>
-                    <span className={`font-medium ${getStrengthColor() === 'bg-red-500' ? 'text-red-600' : getStrengthColor() === 'bg-yellow-500' ? 'text-yellow-600' : 'text-green-600'}`}>
+                <div className="mt-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-slate-400">Password strength:</span>
+                    <span className={`text-xs font-semibold ${
+                      strengthValue <= 2 ? 'text-red-400' : 
+                      strengthValue === 3 ? 'text-amber-400' : 
+                      'text-green-400'
+                    }`}>
                       {getStrengthLabel()}
                     </span>
                   </div>
-                  <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
+
+                  <div className="h-2 bg-slate-700/50 rounded-full overflow-hidden">
                     <div
-                      className={`h-full ${getStrengthColor()} transition-all duration-300`}
-                      style={{
-                        width: `${(Object.values(passwordChecks).filter(Boolean).length / 4) * 100}%`,
-                      }}
+                      className={`h-full bg-gradient-to-r ${getStrengthColor()} transition-all duration-300`}
+                      style={{ width: `${(strengthValue / 4) * 100}%` }}
                     ></div>
                   </div>
 
-                  <div className="space-y-1 text-xs">
-                    <div className={passwordChecks.hasMinLength ? 'text-green-600' : 'text-slate-500'}>
-                      ✓ At least 8 characters
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className={`flex items-center gap-2 ${passwordChecks.hasMinLength ? 'text-green-400' : 'text-slate-500'}`}>
+                      <span>{passwordChecks.hasMinLength ? '✓' : '○'}</span>
+                      <span>8+ characters</span>
                     </div>
-                    <div className={passwordChecks.hasUppercase ? 'text-green-600' : 'text-slate-500'}>
-                      ✓ At least one uppercase letter
+                    <div className={`flex items-center gap-2 ${passwordChecks.hasUppercase ? 'text-green-400' : 'text-slate-500'}`}>
+                      <span>{passwordChecks.hasUppercase ? '✓' : '○'}</span>
+                      <span>Uppercase</span>
                     </div>
-                    <div className={passwordChecks.hasLowercase ? 'text-green-600' : 'text-slate-500'}>
-                      ✓ At least one lowercase letter
+                    <div className={`flex items-center gap-2 ${passwordChecks.hasLowercase ? 'text-green-400' : 'text-slate-500'}`}>
+                      <span>{passwordChecks.hasLowercase ? '✓' : '○'}</span>
+                      <span>Lowercase</span>
                     </div>
-                    <div className={passwordChecks.hasDigit ? 'text-green-600' : 'text-slate-500'}>
-                      ✓ At least one digit
+                    <div className={`flex items-center gap-2 ${passwordChecks.hasDigit ? 'text-green-400' : 'text-slate-500'}`}>
+                      <span>{passwordChecks.hasDigit ? '✓' : '○'}</span>
+                      <span>Number</span>
                     </div>
                   </div>
                 </div>
               )}
             </div>
 
+            {/* Confirm Password Field */}
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-700 mb-1">
-                Confirm Password
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-300 mb-2">
+                Confirm password
               </label>
               <input
                 id="confirmPassword"
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 text-white placeholder-slate-500 rounded-lg focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 transition duration-200"
                 placeholder="••••••••"
                 disabled={submitting}
               />
-              {confirmPassword && password !== confirmPassword && (
-                <p className="mt-1 text-xs text-red-600">Passwords do not match</p>
+              {confirmPassword && password && password !== confirmPassword && (
+                <p className="mt-2 text-xs text-red-400 flex items-center gap-1">
+                  <span>●</span> Passwords do not match
+                </p>
+              )}
+              {confirmPassword && password && password === confirmPassword && (
+                <p className="mt-2 text-xs text-green-400 flex items-center gap-1">
+                  <span>✓</span> Passwords match
+                </p>
               )}
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={submitting || !isPasswordStrong || password !== confirmPassword}
-              className="w-full mt-6 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-medium py-2 rounded-lg transition duration-200"
+              className="w-full mt-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-600 disabled:to-slate-700 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {submitting ? 'Creating account...' : 'Create Account'}
+              {submitting ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></span>
+                  Creating account...
+                </span>
+              ) : (
+                'Create Account'
+              )}
             </button>
           </form>
 
-          <p className="mt-6 text-center text-slate-600">
+          {/* Divider */}
+          <div className="my-6 flex items-center gap-3">
+            <div className="flex-1 h-px bg-slate-700/50"></div>
+            <span className="text-slate-500 text-xs uppercase">or</span>
+            <div className="flex-1 h-px bg-slate-700/50"></div>
+          </div>
+
+          {/* Sign in link */}
+          <p className="text-center text-slate-400">
             Already have an account?{' '}
-            <Link to="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+            <Link to="/login" className="text-blue-400 hover:text-blue-300 font-semibold transition duration-200">
               Sign in here
             </Link>
           </p>
         </div>
 
-        <p className="text-center text-slate-400 text-sm mt-6">
-          Secure registration with password strength validation
+        {/* Footer */}
+        <p className="text-center text-slate-500 text-xs mt-8">
+          🔒 Secure registration with password strength validation
         </p>
       </div>
     </div>

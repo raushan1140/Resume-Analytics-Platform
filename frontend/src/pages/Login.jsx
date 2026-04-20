@@ -31,36 +31,53 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-xl p-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Resume Analytics</h1>
-          <p className="text-slate-600 mb-8">Sign in to your account</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center px-4 py-8">
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="w-full max-w-md relative z-10">
+        {/* Logo/Header */}
+        <div className="text-center mb-10">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="w-2.5 h-2.5 bg-blue-500 rounded-full"></div>
+            <span className="text-white font-semibold text-xl">Resume Analytics</span>
+          </div>
+        </div>
+
+        {/* Card */}
+        <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl shadow-2xl p-10 hover:border-blue-500/30 transition duration-300">
+          <h2 className="text-2xl font-bold text-white mb-2">Sign in to your account</h2>
+          <p className="text-slate-400 mb-8">Welcome back! Please sign in to continue.</p>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-800 text-sm">{error}</p>
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg animate-shake">
+              <p className="text-red-300 text-sm font-medium">{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
-                Email
+              <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+                Email address
               </label>
               <input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 text-white placeholder-slate-500 rounded-lg focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 transition duration-200"
                 placeholder="your.email@example.com"
                 disabled={submitting}
               />
             </div>
 
+            {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
                 Password
               </label>
               <input
@@ -68,31 +85,48 @@ export default function Login() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 text-white placeholder-slate-500 rounded-lg focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 transition duration-200"
                 placeholder="••••••••"
                 disabled={submitting}
               />
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={submitting}
-              className="w-full mt-6 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-medium py-2 rounded-lg transition duration-200"
+              className="w-full mt-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-600 disabled:to-slate-700 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 disabled:cursor-not-allowed"
             >
-              {submitting ? 'Signing in...' : 'Sign In'}
+              {submitting ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></span>
+                  Signing in...
+                </span>
+              ) : (
+                'Sign In'
+              )}
             </button>
           </form>
 
-          <p className="mt-6 text-center text-slate-600">
+          {/* Divider */}
+          <div className="my-6 flex items-center gap-3">
+            <div className="flex-1 h-px bg-slate-700/50"></div>
+            <span className="text-slate-500 text-xs uppercase">or</span>
+            <div className="flex-1 h-px bg-slate-700/50"></div>
+          </div>
+
+          {/* Sign up link */}
+          <p className="text-center text-slate-400">
             Don't have an account?{' '}
-            <Link to="/register" className="text-blue-600 hover:text-blue-700 font-medium">
-              Register here
+            <Link to="/register" className="text-blue-400 hover:text-blue-300 font-semibold transition duration-200">
+              Sign up here
             </Link>
           </p>
         </div>
 
-        <p className="text-center text-slate-400 text-sm mt-6">
-          Secure authentication with JWT tokens
+        {/* Footer */}
+        <p className="text-center text-slate-500 text-xs mt-8">
+          🔒 Secure authentication with JWT tokens
         </p>
       </div>
     </div>
