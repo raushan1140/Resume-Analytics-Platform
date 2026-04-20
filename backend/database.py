@@ -2,6 +2,7 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.engine.url import make_url
+from sqlalchemy.pool import NullPool
 
 # -------------------------------------------------
 # Get DATABASE_URL from environment (Render)
@@ -18,8 +19,11 @@ if DATABASE_URL:
     if DATABASE_URL.startswith("postgres://"):
         DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
+    # Use NullPool for free tier to handle spindown better
     engine = create_engine(
         DATABASE_URL,
+        poolclass=NullPool,  # No connection pooling for free tier
+        connect_args={"timeout": 10},  # 10 second timeout
         pool_pre_ping=True  # Prevents stale DB connections
     )
 
