@@ -23,7 +23,7 @@ if DATABASE_URL:
     engine = create_engine(
         DATABASE_URL,
         poolclass=NullPool,  # No connection pooling for free tier
-        connect_args={"timeout": 10},  # 10 second timeout
+        connect_args={"connect_timeout": 10},  # 10 second connection timeout
         pool_pre_ping=True  # Prevents stale DB connections
     )
 
